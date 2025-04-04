@@ -9,17 +9,15 @@ import java.util.List;
 
 public class VectorEditorPanel extends JPanel implements MouseListener, MouseMotionListener {
 
-    private final List<AbstractShape> shapesList; // lista wszystkich kształtów
-    private ShapeType currentShapeType;           // aktualnie wybrany rodzaj kształtu do rysowania
-    private Color currentColor;                   // aktualnie wybrany kolor
+    private final List<AbstractShape> shapesList;
+    private ShapeType currentShapeType;
+    private Color currentColor;
 
-    private AbstractShape shapeBeingCreated;      // kształt tworzony "w locie" (podczas przeciągania)
-    private boolean isCreatingNewShape = false;   // czy aktualnie tworzymy nowy kształt
+    private AbstractShape shapeBeingCreated, shapeBeingMoved;
 
-    private AbstractShape shapeBeingMoved;        // kształt, który złapaliśmy do przesunięcia
-    private int previousMouseX, previousMouseY;   // poprzednia pozycja myszy (przy przesuwaniu)
+    private boolean isCreatingNewShape = false;
 
-    private int shapeStartX, shapeStartY;         // współrzędne startu przy tworzeniu nowego kształtu
+    private int previousMouseX, previousMouseY, shapeStartX, shapeStartY;
 
     public VectorEditorPanel() {
         shapesList = new ArrayList<>();
@@ -165,14 +163,16 @@ public class VectorEditorPanel extends JPanel implements MouseListener, MouseMot
         if (shape instanceof LineShape line) {
             line.setStartPoint(startX, startY);
             line.setEndPoint(currentX, currentY);
-        } else if (shape instanceof RectangleShape rect) {
+        }
+        else if (shape instanceof RectangleShape rect) {
             int newX = Math.min(startX, currentX);
             int newY = Math.min(startY, currentY);
             int newW = Math.abs(currentX - startX);
             int newH = Math.abs(currentY - startY);
             rect.setTopLeftPoint(newX, newY);
             rect.setWidthHeight(newW, newH);
-        } else if (shape instanceof CircleShape circle) {
+        }
+        else if (shape instanceof CircleShape circle) {
             circle.setCenterPoint(startX, startY);
             int newRadius = (int) AbstractShape.calculateDistance(startX, startY, currentX, currentY);
             circle.setRadius(newRadius);
@@ -191,4 +191,3 @@ public class VectorEditorPanel extends JPanel implements MouseListener, MouseMot
         return shapesList;
     }
 }
-
