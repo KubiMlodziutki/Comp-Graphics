@@ -170,11 +170,11 @@ public class EditorControlPanel extends JPanel {
                 if (parts.length == 7) {
                     int cx = Integer.parseInt(parts[1]);
                     int cy = Integer.parseInt(parts[2]);
-                    int rr = Integer.parseInt(parts[3]);
+                    int rad = Integer.parseInt(parts[3]);
                     int r = Integer.parseInt(parts[4]);
                     int g = Integer.parseInt(parts[5]);
                     int b = Integer.parseInt(parts[6]);
-                    shapes.add(new CircleShape(cx, cy, rr, new Color(r, g, b)));
+                    shapes.add(new CircleShape(cx, cy, rad, new Color(r, g, b)));
                 }
                 break;
             default:
