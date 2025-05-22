@@ -1,0 +1,65 @@
+public boolean hit(Point2D point){
+        try{
+            Point2D loc = transform.createInverse().transform(point,null);
+            return getLocalShape().contains(loc);
+        } catch(Exception e) {
+            return false;
+        }
+    }
+co to jest i jak to działa i po co nam to
+
+
+
+-------
+AffineTransform prevAffineTrans = g2d.getTransform();
+        g2d.transform(transform);
+jak to działa na zapleczu
+
+-----------------
+@Override
+    protected Shape getLocalShape() {
+        BufferedImage tmp = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = tmp.createGraphics();
+        g2d.setFont(font);
+        Rectangle2D rect = g2d.getFontMetrics().getStringBounds(text, g2d);
+        g2d.dispose();
+        return new Rectangle2D.Double(0, -rect.getHeight(), rect.getWidth(), rect.getHeight());
+    }
+
+co to jest jak to działa kiedy sie wywołuje i po co nam to
+
+-------------
+add(btn("←", () -> canvas.nudgeSelected(-1, 0)));
+        add(btn("→", () -> canvas.nudgeSelected( 1, 0)));
+        add(btn("↑", () -> canvas.nudgeSelected( 0,-1)));
+        add(btn("↓", () -> canvas.nudgeSelected( 0, 1)));
+        add(btn("⟲", () -> canvas.rotateSelected(-1)));
+        add(btn("⟳", () -> canvas.rotateSelected( 1)));
+        add(btn("Na wierzch", canvas::bringSelectedForward));
+        add(btn("Na spód", canvas::sendSelectedBackward));
+        add(btn("Dodaj tekst", this::addText));
+        add(btn("Importuj katalog", this::importDir));
+        add(btn("Zapisz",  this::save));
+        add(btn("Wczytaj", this::load));
+        add(btn("Eksport PNG", this::exportPng));
+    }
+
+nie wiem o co w tym wszystkim chodzi, jakieś nudgeselected, rotateselected,...
+
+------
+posElem.getTransformedBounds 
+skąd bierze sie ta funkcja?
+
+-----
+ affineTrans.translate(deltaX, deltaY);
+        affineTrans.concatenate(posElemSelected.getTransform());
+jak to działa na zapleczu, jakie operacje są dokładnie wykonywane?
+--------------
+affineTrans.rotate(Math.toRadians(degrees), centerX, centerY);
+        affineTrans.concatenate(posElemSelected.getTransform());
+jak to działa na zapleczu, jakie operacje są dokładnie wykonywane?
+
+-----------------
+dokładnie o co chodzi z metodami paintGrid, drawHandles, drawHandle. co sie dzieje na zapleczu
+
+------------
